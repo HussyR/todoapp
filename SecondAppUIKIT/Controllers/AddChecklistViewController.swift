@@ -1,5 +1,5 @@
 //
-//  AddItemViewController.swift
+//  AddChecklistViewController.swift
 //  SecondAppUIKIT
 //
 //  Created by Данил on 16.01.2022.
@@ -7,16 +7,16 @@
 
 import UIKit
 
-protocol AddItemViewControllerDelegate: AnyObject {
-    func addItemViewControllerDidCancel(_ controller: AddItemViewController)
-    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: Task)
-    func addItemViewController(_ controller: AddItemViewController, didFinishEdditing item: Task)
+protocol AddChecklistViewControllerDelegate: AnyObject {
+    func addChecklistViewControllerDidCancel(_ controller: AddChecklistViewController)
+    func addChecklistViewController(_ controller: AddChecklistViewController, didFinishAdding item: Checklist)
+    func addChecklistViewController(_ controller: AddChecklistViewController, didFinishEdditing item: Checklist)
 }
 
-class AddItemViewController: UIViewController {
+class AddChecklistViewController: UIViewController {
 
-    var itemToEdit: Task?
-    weak var delegate: AddItemViewControllerDelegate?
+    var itemToEdit : Checklist?
+    weak var delegate: AddChecklistViewControllerDelegate?
     
     let textField: UITextField = {
         let tf = UITextField()
@@ -29,7 +29,6 @@ class AddItemViewController: UIViewController {
         return tf
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,7 +36,7 @@ class AddItemViewController: UIViewController {
         setupUI()
         if let item = itemToEdit {
             navigationItem.title = "Edit item"
-            textField.text = item.task
+            textField.text = item.title
             navigationItem.rightBarButtonItem?.isEnabled = true
         }
     }
@@ -50,23 +49,22 @@ class AddItemViewController: UIViewController {
     }
     
     @objc private func doneAction() {
-        
         if let itemToEdit = itemToEdit {
-            itemToEdit.task = textField.text ?? ""
-            delegate?.addItemViewController(self, didFinishEdditing: itemToEdit)
+            itemToEdit.title = textField.text ?? ""
+            delegate?.addChecklistViewController(self, didFinishEdditing: itemToEdit)
             return
         }
         
         print("Text field text is \(textField.text ?? "")")
-        let model = Task(task: textField.text ?? "", completed: false)
-        delegate?.addItemViewController(self, didFinishAdding: model)
+        let model = Checklist(tasks: [], title: textField.text ?? "")
+        delegate?.addChecklistViewController(self, didFinishAdding: model)
         
         
         
     }
     
     @objc private func cancelAction() {
-        delegate?.addItemViewControllerDidCancel(self)
+        delegate?.addChecklistViewControllerDidCancel(self)
     }
     
     private func setupUI() {
@@ -84,10 +82,10 @@ class AddItemViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    
+
 }
-// Вызывается для включаения и отключения кнопки готово, в зависимости от наполнения  textField
-extension AddItemViewController: UITextFieldDelegate {
+
+extension AddChecklistViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let oldText = textField.text!
           let stringRange = Range(range, in: oldText)!

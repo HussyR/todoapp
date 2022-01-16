@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var data = [Model]()
+    var data : Checklist?
     var editIndex = -1
     
     
@@ -38,14 +38,14 @@ class ViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         
-        loadData()
+//        loadData()
     }
     //MARK: LOAD Data
-    private func loadData() {
-        DataManager.downloadData { [unowned self] data in
-            self.data = data
-        }
-    }
+//    private func loadData() {
+//        DataManager.downloadData { [unowned self] data in
+//            self.data = data
+//        }
+//    }
     
     private func setupNavigation() {
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -62,7 +62,7 @@ class ViewController: UIViewController {
 }
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return data?.tasks.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -74,30 +74,31 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         cell.accessoryType = .detailDisclosureButton
-        cell.updateCell(model: data[indexPath.row])
+//        cell.updateCell(model: data[indexPath.row])
+        cell.updateCell(model: data?.tasks[indexPath.row] ?? Task(task: "", completed: false))
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? CustomTableViewCell else {return}
-        
-        data[indexPath.row].completed = (data[indexPath.row].completed == true ? false : true)
-        cell.updateCell(model: data[indexPath.row])
-        
+        data?.tasks[indexPath.row].completed = (data?.tasks[indexPath.row].completed == true ? false : true)
+        cell.updateCell(model: data?.tasks[indexPath.row] ?? Task(task: "", completed: false))
         tableView.deselectRow(at: indexPath, animated: true)
-        DataManager.writeData(data: data)
+//        DataManager.writeData(data: data)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        data.remove(at: indexPath.row)
+//        data.remove(at: indexPath.row)
+        data?.tasks.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
-        DataManager.writeData(data: data)
+//        DataManager.writeData(data: data)
     }
     // Метод работает про нажатии на accesory button
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         editIndex = indexPath.row
         let vc = AddItemViewController()
-        vc.itemToEdit = data[editIndex]
+        vc.itemToEdit = data?.tasks[editIndex]
+//        vc.itemToEdit = data[editIndex]
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -110,19 +111,21 @@ extension ViewController: AddItemViewControllerDelegate {
         navigationController?.popViewController(animated: true)
     }
     
-    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: Model) {
+    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: Task) {
         navigationController?.popViewController(animated: true)
         
-        data.append(item)
+//        data.append(item)
+        data?.tasks.append(item)
         tableView.reloadData()
-        DataManager.writeData(data: data)
+//        DataManager.writeData(data: data)
     }
     
-    func addItemViewController(_ controller: AddItemViewController, didFinishEdditing item: Model) {
+    func addItemViewController(_ controller: AddItemViewController, didFinishEdditing item: Task) {
         navigationController?.popViewController(animated: true)
-        data[editIndex] = item
+//        data[editIndex] = item
+        data?.tasks[editIndex] = item
         tableView.reloadData()
-        DataManager.writeData(data: data)
+//        DataManager.writeData(data: data)
     }
     
     

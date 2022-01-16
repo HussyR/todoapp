@@ -13,9 +13,11 @@
 		83D5007B2794323400B9E05D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83D5007A2794323400B9E05D /* Assets.xcassets */; };
 		83D5007E2794323400B9E05D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83D5007C2794323400B9E05D /* LaunchScreen.storyboard */; };
 		83D50086279436EA00B9E05D /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D50085279436EA00B9E05D /* CustomTableViewCell.swift */; };
-		83D5008827943AF300B9E05D /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5008727943AF300B9E05D /* Model.swift */; };
 		83D5008A27944F9900B9E05D /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5008927944F9900B9E05D /* AddItemViewController.swift */; };
 		83D5008F27948D2E00B9E05D /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5008E27948D2E00B9E05D /* DataManager.swift */; };
+		83D500912794951E00B9E05D /* AllListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D500902794951E00B9E05D /* AllListsViewController.swift */; };
+		83D5009327949D5300B9E05D /* AddChecklistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5009227949D5300B9E05D /* AddChecklistViewController.swift */; };
+		83D500952794A2E600B9E05D /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D500942794A2E600B9E05D /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,9 +29,11 @@
 		83D5007D2794323400B9E05D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83D5007F2794323400B9E05D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83D50085279436EA00B9E05D /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
-		83D5008727943AF300B9E05D /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		83D5008927944F9900B9E05D /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		83D5008E27948D2E00B9E05D /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		83D500902794951E00B9E05D /* AllListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllListsViewController.swift; sourceTree = "<group>"; };
+		83D5009227949D5300B9E05D /* AddChecklistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChecklistViewController.swift; sourceTree = "<group>"; };
+		83D500942794A2E600B9E05D /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,8 @@
 			children = (
 				83D500752794323300B9E05D /* ViewController.swift */,
 				83D5008927944F9900B9E05D /* AddItemViewController.swift */,
+				83D500902794951E00B9E05D /* AllListsViewController.swift */,
+				83D5009227949D5300B9E05D /* AddChecklistViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -86,8 +92,8 @@
 		83D5008C279450C500B9E05D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				83D5008727943AF300B9E05D /* Model.swift */,
 				83D5008E27948D2E00B9E05D /* DataManager.swift */,
+				83D500942794A2E600B9E05D /* Model.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -170,12 +176,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83D5008827943AF300B9E05D /* Model.swift in Sources */,
 				83D500762794323300B9E05D /* ViewController.swift in Sources */,
 				83D500722794323300B9E05D /* AppDelegate.swift in Sources */,
 				83D5008F27948D2E00B9E05D /* DataManager.swift in Sources */,
+				83D5009327949D5300B9E05D /* AddChecklistViewController.swift in Sources */,
+				83D500952794A2E600B9E05D /* Model.swift in Sources */,
 				83D50086279436EA00B9E05D /* CustomTableViewCell.swift in Sources */,
 				83D500742794323300B9E05D /* SceneDelegate.swift in Sources */,
+				83D500912794951E00B9E05D /* AllListsViewController.swift in Sources */,
 				83D5008A27944F9900B9E05D /* AddItemViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

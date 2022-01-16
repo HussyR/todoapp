@@ -38,7 +38,7 @@ class CustomTableViewCell: UITableViewCell {
         label.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -20).isActive = true
     }
     
-    func updateCell(model: Model) {
+    func updateCell(model: Task) {
         label.text = model.task
         checkmarkLabel.alpha = (model.completed == true ? 1 : 0)
     }

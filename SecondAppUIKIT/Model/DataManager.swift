@@ -18,7 +18,7 @@ struct DataManager {
         return documentDirectory().appendingPathComponent("Checklists.plist")
     }
     
-    static func writeData(data: [Model]) {
+    static func writeData(data: [Checklist]) {
         let encoder = PropertyListEncoder()
         do {
             let data = try encoder.encode(data) // кодируем в binary code
@@ -30,12 +30,12 @@ struct DataManager {
         
     }
     
-    static func downloadData(closure: ([Model]) -> ()) {
+    static func loadData(closure: ([Checklist]) -> ()) {
         let path = dataFilePath()
         guard let data = try? Data(contentsOf: path) else {return}
         let decoder = PropertyListDecoder()
         do {
-            let items = try decoder.decode([Model].self, from: data)
+            let items = try decoder.decode([Checklist].self, from: data)
             closure(items)
         } catch {
             print(error.localizedDescription)
