@@ -25,8 +25,9 @@ class CustomTableViewCell: UITableViewCell {
         label.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -20).isActive = true
     }
     
-    func setLabelText(text: String) {
-        label.text = text 
+    func updateCell(model: Model) {
+        label.text = model.task
+        accessoryType = (model.completed == true ? .checkmark : .none)
     }
     
     required init?(coder: NSCoder) {
