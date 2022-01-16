@@ -15,6 +15,7 @@
 		83D50086279436EA00B9E05D /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D50085279436EA00B9E05D /* CustomTableViewCell.swift */; };
 		83D5008827943AF300B9E05D /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5008727943AF300B9E05D /* Model.swift */; };
 		83D5008A27944F9900B9E05D /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5008927944F9900B9E05D /* AddItemViewController.swift */; };
+		83D5008F27948D2E00B9E05D /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5008E27948D2E00B9E05D /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		83D50085279436EA00B9E05D /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		83D5008727943AF300B9E05D /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		83D5008927944F9900B9E05D /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
+		83D5008E27948D2E00B9E05D /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				83D5008727943AF300B9E05D /* Model.swift */,
+				83D5008E27948D2E00B9E05D /* DataManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 				83D5008827943AF300B9E05D /* Model.swift in Sources */,
 				83D500762794323300B9E05D /* ViewController.swift in Sources */,
 				83D500722794323300B9E05D /* AppDelegate.swift in Sources */,
+				83D5008F27948D2E00B9E05D /* DataManager.swift in Sources */,
 				83D50086279436EA00B9E05D /* CustomTableViewCell.swift in Sources */,
 				83D500742794323300B9E05D /* SceneDelegate.swift in Sources */,
 				83D5008A27944F9900B9E05D /* AddItemViewController.swift in Sources */,

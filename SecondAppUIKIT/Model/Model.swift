@@ -5,7 +5,7 @@
 //  Created by Данил on 16.01.2022.
 //
 
-struct Model {
+struct Model: Codable {
     
     var task: String = ""
     var completed: Bool = false

@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var data = Model.getData()
+    var data = [Model]()
     var editIndex = -1
     
     
@@ -38,6 +38,13 @@ class ViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         
+        loadData()
+    }
+    //MARK: LOAD Data
+    private func loadData() {
+        DataManager.downloadData { [unowned self] data in
+            self.data = data
+        }
     }
     
     private func setupNavigation() {
@@ -78,11 +85,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.updateCell(model: data[indexPath.row])
         
         tableView.deselectRow(at: indexPath, animated: true)
+        DataManager.writeData(data: data)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         data.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
+        DataManager.writeData(data: data)
     }
     // Метод работает про нажатии на accesory button
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
@@ -99,7 +108,6 @@ extension ViewController: AddItemViewControllerDelegate {
     func addItemViewControllerDidCancel(_ controller: AddItemViewController) {
         print("cancel")
         navigationController?.popViewController(animated: true)
-
     }
     
     func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: Model) {
@@ -107,13 +115,14 @@ extension ViewController: AddItemViewControllerDelegate {
         
         data.append(item)
         tableView.reloadData()
-    
+        DataManager.writeData(data: data)
     }
     
     func addItemViewController(_ controller: AddItemViewController, didFinishEdditing item: Model) {
         navigationController?.popViewController(animated: true)
         data[editIndex] = item
         tableView.reloadData()
+        DataManager.writeData(data: data)
     }
     
     
