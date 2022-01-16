@@ -9,17 +9,20 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let data = Model.getData()
+    var data = Model.getData()
     
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .yellow
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         return tableView
     }()
     
+    
+    
     override func viewDidLoad() {
+        setupNavigation()
+        view.backgroundColor = .white
         super.viewDidLoad()
         view.addSubview(tableView)
         
@@ -32,10 +35,19 @@ class ViewController: UIViewController {
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        
     }
-
-
+    
+    private func setupNavigation() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = "To Do list"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAction))
+    }
+    
+    @objc private func addAction() {
+        let vc = AddItemViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,14 +62,22 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as? CustomTableViewCell else {
             return UITableViewCell()
         }
-        cell.setLabelText(text: data[indexPath.row].task)
+        cell.updateCell(model: data[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? CustomTableViewCell else {return}
+        
+        data[indexPath.row].completed = (data[indexPath.row].completed == true ? false : true)
         cell.toggleAccesoryType()
+        
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        data.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
 }

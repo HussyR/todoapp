@@ -12,10 +12,10 @@ struct Model {
     
     static func getData() -> [Model] {
         return [
-            Model(task: "Walk"),
+            Model(task: "Walk", completed: true),
             Model(task: "Read"),
             Model(task: "Clean"),
-            Model(task: "Cook"),
+            Model(task: "Cook",  completed: true),
             Model(task: "Study")
         ]
     }
