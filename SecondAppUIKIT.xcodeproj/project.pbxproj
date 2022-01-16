@@ -64,7 +64,7 @@
 				83D500732794323300B9E05D /* SceneDelegate.swift */,
 				83D5008B279450A800B9E05D /* Controllers */,
 				83D5008C279450C500B9E05D /* Model */,
-				83D50085279436EA00B9E05D /* CustomTableViewCell.swift */,
+				83D5008D2794573000B9E05D /* Views */,
 				83D5007A2794323400B9E05D /* Assets.xcassets */,
 				83D5007C2794323400B9E05D /* LaunchScreen.storyboard */,
 				83D5007F2794323400B9E05D /* Info.plist */,
@@ -87,6 +87,14 @@
 				83D5008727943AF300B9E05D /* Model.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		83D5008D2794573000B9E05D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				83D50085279436EA00B9E05D /* CustomTableViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

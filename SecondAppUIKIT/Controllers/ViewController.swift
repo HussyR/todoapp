@@ -45,6 +45,7 @@ class ViewController: UIViewController {
     
     @objc private func addAction() {
         let vc = AddItemViewController()
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -80,4 +81,20 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
+}
+
+extension ViewController: AddItemViewControllerDelegate {
+    func addItemViewControllerDidCancel(_ controller: AddItemViewController) {
+        print("cancel")
+        navigationController?.popViewController(animated: true)
+
+    }
+    
+    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: Model) {
+        navigationController?.popViewController(animated: true)
+        
+        data.append(item)
+        tableView.reloadData()
+    
+    }
 }
