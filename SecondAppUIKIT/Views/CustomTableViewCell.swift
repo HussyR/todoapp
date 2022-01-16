@@ -9,6 +9,15 @@ import UIKit
 
 class CustomTableViewCell: UITableViewCell {
 
+    private let checkmarkLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "√"
+        label.font = UIFont(name: "Helvetica Neue Bold", size: 22)
+
+        return label
+    }()
+    
     private let label: UILabel = {
         let label = UILabel()
         label.text = "Example"
@@ -18,24 +27,24 @@ class CustomTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        accessoryType = .checkmark
+        
+        addSubview(checkmarkLabel)
+        checkmarkLabel.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10).isActive = true
+        checkmarkLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
         addSubview(label)
-        label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+        label.leadingAnchor.constraint(equalTo: checkmarkLabel.trailingAnchor, constant: 5).isActive = true
         label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         label.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -20).isActive = true
     }
     
     func updateCell(model: Model) {
         label.text = model.task
-        accessoryType = (model.completed == true ? .checkmark : .none)
+        checkmarkLabel.alpha = (model.completed == true ? 1 : 0)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func toggleAccesoryType() {
-        accessoryType = (accessoryType == .checkmark ? .none: .checkmark)
     }
 
 }

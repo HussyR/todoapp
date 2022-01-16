@@ -8,12 +8,14 @@
 import UIKit
 
 protocol AddItemViewControllerDelegate: AnyObject {
-  func addItemViewControllerDidCancel(_ controller: AddItemViewController)
-  func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: Model)
+    func addItemViewControllerDidCancel(_ controller: AddItemViewController)
+    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: Model)
+    func addItemViewController(_ controller: AddItemViewController, didFinishEdditing item: Model)
 }
 
 class AddItemViewController: UIViewController {
 
+    var itemToEdit: Model?
     weak var delegate: AddItemViewControllerDelegate?
     
     let textField: UITextField = {
@@ -33,6 +35,11 @@ class AddItemViewController: UIViewController {
         
         setupNavigation()
         setupUI()
+        if let item = itemToEdit {
+            navigationItem.title = "Edit item"
+            textField.text = item.task
+            navigationItem.rightBarButtonItem?.isEnabled = true
+        }
     }
     private func setupNavigation() {
         navigationItem.largeTitleDisplayMode = .never
@@ -43,15 +50,23 @@ class AddItemViewController: UIViewController {
     }
     
     @objc private func doneAction() {
+        
+        if let _ = itemToEdit {
+            let newItem = Model(task: textField.text ?? "", completed: itemToEdit?.completed ?? false)
+            delegate?.addItemViewController(self, didFinishEdditing: newItem)
+            return
+        }
+        
         print("Text field text is \(textField.text ?? "")")
         let model = Model(task: textField.text ?? "", completed: false)
         delegate?.addItemViewController(self, didFinishAdding: model)
-//        navigationController?.popViewController(animated: true)
+        
+        
+        
     }
     
     @objc private func cancelAction() {
         delegate?.addItemViewControllerDidCancel(self)
-//        navigationController?.popViewController(animated: true)
     }
     
     private func setupUI() {

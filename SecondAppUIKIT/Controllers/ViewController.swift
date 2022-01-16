@@ -10,6 +10,8 @@ import UIKit
 class ViewController: UIViewController {
 
     var data = Model.getData()
+    var editIndex = -1
+    
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -35,6 +37,7 @@ class ViewController: UIViewController {
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        
     }
     
     private func setupNavigation() {
@@ -63,6 +66,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as? CustomTableViewCell else {
             return UITableViewCell()
         }
+        cell.accessoryType = .detailDisclosureButton
         cell.updateCell(model: data[indexPath.row])
         return cell
     }
@@ -71,7 +75,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.cellForRow(at: indexPath) as? CustomTableViewCell else {return}
         
         data[indexPath.row].completed = (data[indexPath.row].completed == true ? false : true)
-        cell.toggleAccesoryType()
+        cell.updateCell(model: data[indexPath.row])
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -79,6 +83,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         data.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+    // Метод работает про нажатии на accesory button
+    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        editIndex = indexPath.row
+        let vc = AddItemViewController()
+        vc.itemToEdit = data[editIndex]
+        vc.delegate = self
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
@@ -97,4 +109,13 @@ extension ViewController: AddItemViewControllerDelegate {
         tableView.reloadData()
     
     }
+    
+    func addItemViewController(_ controller: AddItemViewController, didFinishEdditing item: Model) {
+        navigationController?.popViewController(animated: true)
+        data[editIndex] = item
+        tableView.reloadData()
+    }
+    
+    
+    
 }
